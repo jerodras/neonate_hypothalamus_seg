@@ -1,6 +1,8 @@
 # neonate_hypothalamus_seg
 An automatic pipeline for segmentation of the newborn hypothalamus.
 
+![Pipeline Overview](PipelineOverview.jpeg)
+
 The following materials are provided to guide the reader through the installation and use of a fully automated registration-based pipeline for the segmentation of the newborn hypothalamus. The code provided here is intended to be used with T1w/T2w image pairs using BIDs formatting. The output is designed to be compatible with the hypothalamic sub-unit segmentations provided by FreeSurfer's *mri_segment_hypothalamic_subunits* tool.
 
 # Dependencies
