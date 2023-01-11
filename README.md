@@ -45,11 +45,13 @@ Downloading a sample dataset: This pipeline has been internally tested on multip
 
 # Usage
 
+After downloading, converting raw data files to BIDs format, and installing the above materials, one should have a directory that looks like the below. This directory structure contains all of the necessary files for performing the segmentation. The README.txt is BIDS required and can contain notes about your sample (removed subjects etc). The code folder includes the python code for extracting the brain (ANTS_brain_extract_single.py, antspynet based), refining the brain mask by removing islands (EditANTsBrain.py), and finally the necessary registrations for hypothalamic sub-nuclei are carried out in a batch script (batchProcHTH.sh). All of the templates and registrations are contained within the subfolder "templates".
+
 ```bash
-After downloading, converting raw data files to BIDs format, and installing the above materials, one should have a directory that looks like the below.
+├── README.txt
 ├── code
 │   ├── ANTS_brain_extract_single.py
-│   ├── ANTSbet_wrapper_command_line.m
+│   ├── EditANTsBrain.py
 │   ├── HTH_indices.txt
 │   ├── batchProcHTH.sh
 │   └── templates
@@ -58,17 +60,7 @@ After downloading, converting raw data files to BIDs format, and installing the 
 │       ├── BCP-02M-T1.nii.gz
 │       ├── BCP-03M-T1.nii.gz
 │       ├── BCP-04M-T1.nii.gz
-│       ├── MNI152_T1_1mm_seg_SN_Fornix.nii.gz
-│       ├── MNI152_T1_1mm_seg_SN_L_AI.nii.gz
-│       ├── MNI152_T1_1mm_seg_SN_L_AS.nii.gz
-│       ├── MNI152_T1_1mm_seg_SN_L_IT.nii.gz
-│       ├── MNI152_T1_1mm_seg_SN_L_P.nii.gz
-│       ├── MNI152_T1_1mm_seg_SN_L_ST.nii.gz
-│       ├── MNI152_T1_1mm_seg_SN_R_AI.nii.gz
-│       ├── MNI152_T1_1mm_seg_SN_R_AS.nii.gz
-│       ├── MNI152_T1_1mm_seg_SN_R_IT.nii.gz
-│       ├── MNI152_T1_1mm_seg_SN_R_P.nii.gz
-│       ├── MNI152_T1_1mm_seg_SN_R_ST.nii.gz
+│       ├── MNI152_T1_1mm_seg.nii.gz
 │       ├── MNI152_T1_1mm_seg_bin.nii.gz
 │       ├── MNI_in_BCP-00M-T10GenericAffine.mat
 │       ├── MNI_in_BCP-00M-T11InverseWarp.nii.gz
@@ -95,25 +87,6 @@ After downloading, converting raw data files to BIDs format, and installing the 
 │       ├── MNI_in_BCP-04M-T11Warp.nii.gz
 │       ├── MNI_in_BCP-04M-T1InverseWarped.nii.gz
 │       └── MNI_in_BCP-04M-T1Warped.nii.gz
-├── derivatives
-│   └── hth_seg
-│       └── sub-ct00023
-│           └── ses-visit1
-│               └── anat
-│                   ├── sub-ct00023_ses-visit1_run-02_T1w_hth_seg_bin.nii.gz
-│                   ├── sub-ct00023_ses-visit1_run-02_T1w_hth_seg_bin_thr0635.nii.gz
-│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro.nii.gz
-│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro_T1wT2w_mask.nii.gz
-│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro_T1wT2w_mask_edit.nii.gz
-│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain.nii.gz
-│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain_2_BCP0GenericAffine.mat
-│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain_2_BCP1InverseWarp.nii.gz
-│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain_2_BCP1Warp.nii.gz
-│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain_2_BCPInverseWarped.nii.gz
-│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain_2_BCPWarped.nii.gz
-│                   ├── sub-ct00023_ses-visit1_run-02_T2w_ro.nii.gz
-│                   ├── sub-ct00023_ses-visit1_run-02_T2w_ro_2_T1w.mat
-│                   └── sub-ct00023_ses-visit1_run-02_T2w_ro_in_T1w.nii.gz
 └── sub-ct00023
     └── ses-visit1
         └── anat
@@ -121,4 +94,27 @@ After downloading, converting raw data files to BIDs format, and installing the 
             ├── sub-ct00023_ses-visit1_run-02_T1w.nii.gz
             ├── sub-ct00023_ses-visit1_run-02_T2w.json
             └── sub-ct00023_ses-visit1_run-02_T2w.nii.gz
+```
+
+The script is ran using the *batchProcHTH.sh* command and will iteratively loop through each unique participant in the base directory at a default age of one month. The following is output from the pipeline and contains the segmentation ~/*base_directory*/*project_name*/derivatives/sub-*subject_name*/ses-*session*/anat/sub-*subject_name_ses-session*T1w_hth_seg.nii.gz. In addition, midpoint files include registrations, warps, and masks. Examples are provided below. 
+
+```bash
+derivatives/
+└── hth_seg
+    └── sub-ct00023
+        └── ses-visit1
+            └── anat
+                ├── sub-ct00023_ses-visit1_run-02_T1w_hth_seg.nii.gz
+                ├── sub-ct00023_ses-visit1_run-02_T1w_ro.nii.gz
+                ├── sub-ct00023_ses-visit1_run-02_T1w_ro_T1wT2w_mask.nii.gz
+                ├── sub-ct00023_ses-visit1_run-02_T1w_ro_T1wT2w_mask_edit.nii.gz
+                ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain.nii.gz
+                ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain_2_BCP0GenericAffine.mat
+                ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain_2_BCP1InverseWarp.nii.gz
+                ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain_2_BCP1Warp.nii.gz
+                ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain_2_BCPInverseWarped.nii.gz
+                ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain_2_BCPWarped.nii.gz
+                ├── sub-ct00023_ses-visit1_run-02_T2w_ro.nii.gz
+                ├── sub-ct00023_ses-visit1_run-02_T2w_ro_2_T1w.mat
+                └── sub-ct00023_ses-visit1_run-02_T2w_ro_in_T1w.nii.gz
 ```
