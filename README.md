@@ -125,4 +125,4 @@ derivatives/
 
 Example images of the segmentation output (hth_seg.nii.gz, top right, shown in fsleyes "Spectrum" lookup table and spanning 800-810 intensity), the T1-weighted input (T1w_ro.nii.gz), and the brain masks (T1w_ro_T1wT2w_mask_edit.nii.gz and T1w_ro_T1wT2w_mask.nii.gz, note shown in coronal format to see auto-edited non-brain "islands" in red).
 
-!(Example Images)[ExampleSegs.jpeg]
+![Example Images](ExampleSegs.jpeg)
