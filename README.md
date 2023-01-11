@@ -45,6 +45,7 @@ Downloading a sample dataset: This pipeline has been internally tested on multip
 
 # Usage
 
+```bash
 After downloading, converting raw data files to BIDs format, and installing the above materials, one should have a directory that looks like the below.
 ├── code
 │   ├── ANTS_brain_extract_single.py
@@ -120,3 +121,4 @@ After downloading, converting raw data files to BIDs format, and installing the 
             ├── sub-ct00023_ses-visit1_run-02_T1w.nii.gz
             ├── sub-ct00023_ses-visit1_run-02_T2w.json
             └── sub-ct00023_ses-visit1_run-02_T2w.nii.gz
+```
