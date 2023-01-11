@@ -41,6 +41,82 @@ Download: Download the directory hosted here that uses the project name neonate_
 
 Downloading and moving the atlas files into the directory structure: The primary function of this code base is to simply register the participant to the age-appropriate UNC Atlas template. Once this is complete, pre-registered warps from the template space to the adult template are concatenated and the freesurfer defined subunits labels in adult space are registered back into the infant space using ANTs. In order to do this, the reference images must be in a place where the code expects them. IMPORTANT: Because these are external (UNC 4d atlas) they must be first downloaded (per above) and copied or moved into the appropriate directory structure ~/*base_directory*/*project_name*/code/templates. In the end, for example, the following should be in your directory tree: ~/*base_directory*/*project_name*/code/templates/BCP-01M-T1.nii.gz.
 
-Downloading a sample dataset: This pipeline has been internally tested on multiple acquisition styles and datasets that are available to researchers for secondary analysis, including: [developing Human Connectome Project](http://www.developingconnectome.org/data-release/data-release-user-guide/), and the [UMN/UNC Baby Connectome Project](https://nda.nih.gov/edit_collection.html?id=2848). However, the original publication of this method was developed using data publicly available from a [UC Irvine study of Fetal Programming of Offspring Brain Development](https://nda.nih.gov/edit_collection.html?id=2308) and is used here as an example.
+Downloading a sample dataset: This pipeline has been internally tested on multiple acquisition styles and datasets that are available to researchers for secondary analysis, including: [developing Human Connectome Project](http://www.developingconnectome.org/data-release/data-release-user-guide/), and the [UMN/UNC Baby Connectome Project](https://nda.nih.gov/edit_collection.html?id=2848). However, the original publication of this method was developed using data publicly available from a study of [Intergenerational Effects of Maternal Childhood Trauma on the Fetal Brain](https://nda.nih.gov/edit_collection.html?id=2308) and is used here as an example. Note that this data should be arranged in a [BIDS](https://bids-specification.readthedocs.io/en/stable/) data structure (see below).
 
 # Usage
+
+After downloading, converting raw data files to BIDs format, and installing the above materials, one should have a directory that looks like the below.
+├── code
+│   ├── ANTS_brain_extract_single.py
+│   ├── ANTSbet_wrapper_command_line.m
+│   ├── HTH_indices.txt
+│   ├── batchProcHTH.sh
+│   └── templates
+│       ├── BCP-00M-T1.nii.gz
+│       ├── BCP-01M-T1.nii.gz
+│       ├── BCP-02M-T1.nii.gz
+│       ├── BCP-03M-T1.nii.gz
+│       ├── BCP-04M-T1.nii.gz
+│       ├── MNI152_T1_1mm_seg_SN_Fornix.nii.gz
+│       ├── MNI152_T1_1mm_seg_SN_L_AI.nii.gz
+│       ├── MNI152_T1_1mm_seg_SN_L_AS.nii.gz
+│       ├── MNI152_T1_1mm_seg_SN_L_IT.nii.gz
+│       ├── MNI152_T1_1mm_seg_SN_L_P.nii.gz
+│       ├── MNI152_T1_1mm_seg_SN_L_ST.nii.gz
+│       ├── MNI152_T1_1mm_seg_SN_R_AI.nii.gz
+│       ├── MNI152_T1_1mm_seg_SN_R_AS.nii.gz
+│       ├── MNI152_T1_1mm_seg_SN_R_IT.nii.gz
+│       ├── MNI152_T1_1mm_seg_SN_R_P.nii.gz
+│       ├── MNI152_T1_1mm_seg_SN_R_ST.nii.gz
+│       ├── MNI152_T1_1mm_seg_bin.nii.gz
+│       ├── MNI_in_BCP-00M-T10GenericAffine.mat
+│       ├── MNI_in_BCP-00M-T11InverseWarp.nii.gz
+│       ├── MNI_in_BCP-00M-T11Warp.nii.gz
+│       ├── MNI_in_BCP-00M-T1InverseWarped.nii.gz
+│       ├── MNI_in_BCP-00M-T1Warped.nii.gz
+│       ├── MNI_in_BCP-01M-T10GenericAffine.mat
+│       ├── MNI_in_BCP-01M-T11InverseWarp.nii.gz
+│       ├── MNI_in_BCP-01M-T11Warp.nii.gz
+│       ├── MNI_in_BCP-01M-T1InverseWarped.nii.gz
+│       ├── MNI_in_BCP-01M-T1Warped.nii.gz
+│       ├── MNI_in_BCP-02M-T10GenericAffine.mat
+│       ├── MNI_in_BCP-02M-T11InverseWarp.nii.gz
+│       ├── MNI_in_BCP-02M-T11Warp.nii.gz
+│       ├── MNI_in_BCP-02M-T1InverseWarped.nii.gz
+│       ├── MNI_in_BCP-02M-T1Warped.nii.gz
+│       ├── MNI_in_BCP-03M-T10GenericAffine.mat
+│       ├── MNI_in_BCP-03M-T11InverseWarp.nii.gz
+│       ├── MNI_in_BCP-03M-T11Warp.nii.gz
+│       ├── MNI_in_BCP-03M-T1InverseWarped.nii.gz
+│       ├── MNI_in_BCP-03M-T1Warped.nii.gz
+│       ├── MNI_in_BCP-04M-T10GenericAffine.mat
+│       ├── MNI_in_BCP-04M-T11InverseWarp.nii.gz
+│       ├── MNI_in_BCP-04M-T11Warp.nii.gz
+│       ├── MNI_in_BCP-04M-T1InverseWarped.nii.gz
+│       └── MNI_in_BCP-04M-T1Warped.nii.gz
+├── derivatives
+│   └── hth_seg
+│       └── sub-ct00023
+│           └── ses-visit1
+│               └── anat
+│                   ├── sub-ct00023_ses-visit1_run-02_T1w_hth_seg_bin.nii.gz
+│                   ├── sub-ct00023_ses-visit1_run-02_T1w_hth_seg_bin_thr0635.nii.gz
+│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro.nii.gz
+│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro_T1wT2w_mask.nii.gz
+│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro_T1wT2w_mask_edit.nii.gz
+│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain.nii.gz
+│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain_2_BCP0GenericAffine.mat
+│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain_2_BCP1InverseWarp.nii.gz
+│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain_2_BCP1Warp.nii.gz
+│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain_2_BCPInverseWarped.nii.gz
+│                   ├── sub-ct00023_ses-visit1_run-02_T1w_ro_brain_2_BCPWarped.nii.gz
+│                   ├── sub-ct00023_ses-visit1_run-02_T2w_ro.nii.gz
+│                   ├── sub-ct00023_ses-visit1_run-02_T2w_ro_2_T1w.mat
+│                   └── sub-ct00023_ses-visit1_run-02_T2w_ro_in_T1w.nii.gz
+└── sub-ct00023
+    └── ses-visit1
+        └── anat
+            ├── sub-ct00023_ses-visit1_run-02_T1w.json
+            ├── sub-ct00023_ses-visit1_run-02_T1w.nii.gz
+            ├── sub-ct00023_ses-visit1_run-02_T2w.json
+            └── sub-ct00023_ses-visit1_run-02_T2w.nii.gz
