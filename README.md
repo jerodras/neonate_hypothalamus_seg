@@ -118,3 +118,6 @@ derivatives/
                 ├── sub-ct00023_ses-visit1_run-02_T2w_ro_2_T1w.mat
                 └── sub-ct00023_ses-visit1_run-02_T2w_ro_in_T1w.nii.gz
 ```
+
+# Example Output
+
