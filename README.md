@@ -98,7 +98,7 @@ After downloading, converting raw data files to BIDs format, and installing the 
             └── sub-ct00023_ses-visit1_run-02_T2w.nii.gz
 ```
 
-The script is ran using the *batchProcHTH.sh* command and will iteratively loop through each unique participant in the base directory at a default age of one month. The following is output from the pipeline and contains the segmentation ~/*base_directory*/*project_name*/derivatives/sub-*subject_name*/ses-*session*/anat/sub-*subject_name_ses-session*T1w_hth_seg.nii.gz. In addition, midpoint files include registrations, warps, and masks. Examples are provided below. 
+The script is ran using the *batchProcHTH.sh* command and will iteratively loop through each unique participant in the base directory at a default age of one month. Currently, to process neonates at specific ages other than one month, one would change the line in *batchProcHTH.sh* ```mo_age="1"``` in order to accomodate a different age template. A future release will take these values as arguments. The following is output from the pipeline and contains the segmentation ~/*base_directory*/*project_name*/derivatives/sub-*subject_name*/ses-*session*/anat/sub-*subject_name_ses-session*T1w_hth_seg.nii.gz. In addition, midpoint files include registrations, warps, and masks. Examples are provided below. 
 
 ```bash
 derivatives/
