@@ -34,6 +34,8 @@ The following materials are provided to guide the reader through the installatio
 * Atlases for registration:
 
   * [UNC 4d atlas](https://www.nitrc.org/projects/uncbcp_4d_atlas/)
+  
+  * [Warp files]()
 
 # Installation
 
@@ -41,7 +43,7 @@ Dependencies: Installation of the above dependencies should first be completed a
 
 Download: Download the directory hosted here that uses the project name neonate_hypothalamus_seg (you will change this to suit your project). 
 
-Downloading and moving the atlas files into the directory structure: The primary function of this code base is to simply register the participant to the age-appropriate UNC Atlas template. Once this is complete, pre-registered warps from the template space to the adult template are concatenated and the freesurfer defined subunits labels in adult space are registered back into the infant space using ANTs. In order to do this, the reference images must be in a place where the code expects them. IMPORTANT: Because these are external (UNC 4d atlas) they must be first downloaded (per above) and copied or moved into the appropriate directory structure ~/*base_directory*/*project_name*/code/templates. In the end, for example, the following should be in your directory tree: ~/*base_directory*/*project_name*/code/templates/BCP-01M-T1.nii.gz.
+Downloading and moving the atlas files into the directory structure: The primary function of this code base is to simply register the participant to the age-appropriate UNC Atlas template. Once this is complete, pre-registered warps from the template space to the adult template are concatenated and the freesurfer defined subunits labels in adult space are registered back into the infant space using ANTs. In order to do this, the reference images must be in a place where the code expects them (see below for directory structure). IMPORTANT #1: Because these are external (UNC 4d atlas) they must be first downloaded (per above) and copied or moved into the appropriate directory structure ~/*base_directory*/*project_name*/code/templates. In the end, for example, the following should be in your directory tree: ~/*base_directory*/*project_name*/code/templates/BCP-01M-T1.nii.gz. IMPORTANT #2: Because github does not host file sizes larger than 100MB, the template files are all shared via a public Box folder that can be downloaded via the above link (Warp files). In the end, for example, the following should be in your directory tree: ~/*base_directory*/*project_name*/code/templates/MNI_in_BCP-01M-T11Warp.nii.gz
 
 Downloading a sample dataset: This pipeline has been internally tested on multiple acquisition styles and datasets that are available to researchers for secondary analysis, including: [developing Human Connectome Project](http://www.developingconnectome.org/data-release/data-release-user-guide/), and the [UMN/UNC Baby Connectome Project](https://nda.nih.gov/edit_collection.html?id=2848). However, the original publication of this method was developed using data publicly available from a study of [Intergenerational Effects of Maternal Childhood Trauma on the Fetal Brain](https://nda.nih.gov/edit_collection.html?id=2308) and is used here as an example. Note that this data should be arranged in a [BIDS](https://bids-specification.readthedocs.io/en/stable/) data structure (see below).
 
