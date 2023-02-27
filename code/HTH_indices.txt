@@ -1,0 +1,12 @@
+#Indices for hypothalamic sub-nuclei
+1 - Fornix
+2 - L Anterior-inferior
+3 - L Anterior-superior
+4 - L Inferior-tubular
+5 - L Posterior
+6 - L Superior-tubular
+7 - R Anterior-inferior
+8 - R Anterior-superior
+9 - R Inferior-tubular
+10 - R Posterior
+11 - R Superior-tubular
